@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { PlusCircle, Edit2, Trash2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const MenuForm = () => {
   const initialFormState = {
@@ -18,6 +19,14 @@ const MenuForm = () => {
   const [editItem, setEditItem] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate()
+useEffect(() => {
+    if (!owner) {
+      navigate('/owner-login');
+      toast.error('Login as Owner to continue');
+    }
+  }, [owner, navigate]);
+
 
   useEffect(() => {
     fetchMenuItems();
