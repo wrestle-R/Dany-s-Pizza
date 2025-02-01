@@ -24,6 +24,8 @@ app.use(express.urlencoded({ extended: false }));
 // Routes
 app.use("/api", require("./routes/customerRoutes"));
 app.use("/api", require("./routes/ownerRoutes"));
+app.use("/api/cart", require("./routes/cartRoutes"));
+
 
 const port = 8000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
