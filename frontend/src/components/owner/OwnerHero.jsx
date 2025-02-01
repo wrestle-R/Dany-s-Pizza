@@ -22,7 +22,7 @@ const OwnerHero = () => {
         {/* Chefs Card */}
         <div 
           className="bg-white p-6 rounded-lg shadow-lg cursor-pointer hover:transform hover:scale-105 transition-transform" 
-          onClick={() => navigate('/chefs')}
+          onClick={() => navigate('/owner-chef')}
         >
           <div className="text-4xl text-blue-600 mb-4">
             <i className="fas fa-user-chef"></i>

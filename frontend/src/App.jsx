@@ -8,6 +8,8 @@ import OwnerRegisterPage from './components/OwnerRegister'
 import OwnerHero from './components/owner/OwnerHero'
 import OwnerMenu from '../src/components/owner/OwnerMenu'
 import CustomerMenu from './components/customer/Menu'
+import OwnerChef from '../src/components/owner/OwnerChef'
+import Chef from './components/customer/Chef'
 import axios from 'axios';
 import {Toaster} from 'react-hot-toast'
 import {CustomerProvider} from '../context/customerContext'
@@ -37,6 +39,9 @@ const App = () => {
                 <Route path='/owner-hero' element={<OwnerHero/>}/>
                 <Route path='/owner-menu' element={<OwnerMenu/>}/>
                 <Route path='/menu' element={<CustomerMenu/>}/>
+                <Route path='/owner-chef' element={<OwnerChef/>}/>
+                <Route path='/chefs' element={<Chef/>}/>
+
 
 
 

@@ -4,6 +4,7 @@ const cors = require("cors");
 const { mongoose } = require("mongoose");
 const app = express();
 const cookieParser = require("cookie-parser");
+const path = require('path');
 
 // Enable CORS with credentials
 app.use(cors({
@@ -20,11 +21,15 @@ mongoose
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use('/chefs-uploads', express.static(path.join(__dirname, 'chef-uploads')));
+
 
 // Routes
 app.use("/api", require("./routes/customerRoutes"));
 app.use("/api", require("./routes/ownerRoutes"));
 app.use("/api/cart", require("./routes/cartRoutes"));
+app.use("/api/chef", require("./routes/chefRoutes"));
+
 
 
 const port = 8000;
