@@ -70,7 +70,7 @@ const OwnerHero = () => {
         {/* Reviews Card */}
         <div 
           className="bg-white p-6 rounded-lg shadow-lg cursor-pointer hover:transform hover:scale-105 transition-transform"
-          onClick={() => navigate('/reviews')}
+          onClick={() => navigate('/owner-reviews')}
         >
           <div className="text-4xl text-purple-600 mb-4">
             <i className="fas fa-star"></i>

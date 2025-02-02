@@ -3,6 +3,7 @@ import axios from 'axios';
 import chefPhoto from '../../../../backend/chef-uploads/download (6).png'; // Imported default image
 import { useNavigate } from 'react-router-dom';
 import { useCustomer } from '../../../context/customerContext';
+import { toast } from 'react-toastify';
 
 
 const CustomerChefList = () => {
@@ -19,7 +20,7 @@ const CustomerChefList = () => {
   };
 
   const navigate = useNavigate();
-    console.log(customer)
+    
 
   useEffect(() => {
     if (!customer) {

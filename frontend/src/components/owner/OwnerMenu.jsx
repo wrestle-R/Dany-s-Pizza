@@ -3,6 +3,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { PlusCircle, Edit2, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useOwner } from "../../../context/ownerContext";
+
 
 const MenuForm = () => {
   const initialFormState = {
@@ -20,6 +22,8 @@ const MenuForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate()
+    const { owner } = useOwner();
+  
 useEffect(() => {
     if (!owner) {
       navigate('/owner-login');

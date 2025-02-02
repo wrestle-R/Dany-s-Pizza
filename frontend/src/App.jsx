@@ -14,6 +14,9 @@ import axios from 'axios';
 import {Toaster} from 'react-hot-toast'
 import {CustomerProvider} from '../context/customerContext'
 import {OwnerProvider} from '../context/ownerContext'
+import Hero from './components/Hero'
+import ReviewForm from './components/customer/Reviews'
+import OwnerReview from './components/owner/OwnerReviews'
 
 import Dashboard from './components/customer/Dashboard'
 
@@ -41,6 +44,9 @@ const App = () => {
                 <Route path='/menu' element={<CustomerMenu/>}/>
                 <Route path='/owner-chef' element={<OwnerChef/>}/>
                 <Route path='/chefs' element={<Chef/>}/>
+                <Route path='/' element={<Hero/>}/>
+                <Route path='/reviews' element={<ReviewForm/>}/>
+                <Route path='/owner-reviews' element={<OwnerReview/>}/>
 
 
 

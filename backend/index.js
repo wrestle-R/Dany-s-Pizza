@@ -29,6 +29,7 @@ app.use("/api", require("./routes/customerRoutes"));
 app.use("/api", require("./routes/ownerRoutes"));
 app.use("/api/cart", require("./routes/cartRoutes"));
 app.use("/api/chef", require("./routes/chefRoutes"));
+app.use('/api/customer', require("./routes/reviewRoutes")); // Mount the review routes
 
 
 

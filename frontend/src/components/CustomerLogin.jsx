@@ -2,37 +2,78 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCustomer } from '../../context/customerContext';
+import { toast } from 'react-toastify';
+import { Eye, EyeOff, Mail, Lock, ChefHat } from 'lucide-react';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
   const navigate = useNavigate();
   const { setCustomer } = useCustomer();
 
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const validateForm = () => {
+    if (!formData.email || !formData.password) {
+      toast.error('Please fill in all fields');
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Please enter a valid email address');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError('');
     
+    if (!validateForm()) return;
+    
+    setIsLoading(true);
+
     try {
       const response = await axios.post('http://localhost:8000/api/customer/login', {
-        email,
-        password
+        email: formData.email,
+        password: formData.password
       });
       
       const customerData = response.data.customer;
       setCustomer(customerData);
+      toast.success('Welcome back!');
       navigate('/dashboard');
     } catch (error) {
-      setError('Invalid email or password. Please try again.');
+      toast.error('Invalid email or password. Please try again.');
       console.error('Error during login:', error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const InputWithIcon = ({ icon: Icon, ...props }) => (
+    <div className="relative">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+        <Icon size={20} />
+      </div>
+      <input
+        {...props}
+        className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+      />
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -47,22 +88,16 @@ export default function LoginPage() {
 
           <div className="px-8 pb-8">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {error && (
-                <div className="bg-red-50 text-red-500 p-3 rounded-lg text-sm text-center">
-                  {error}
-                </div>
-              )}
-              
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                   Email Address
                 </label>
-                <input
+                <InputWithIcon
+                  icon={Mail}
                   id="email"
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter your email"
                   required
                 />
@@ -73,30 +108,24 @@ export default function LoginPage() {
                   Password
                 </label>
                 <div className="relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <Lock size={20} />
+                  </div>
                   <input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="w-full pl-10 pr-12 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
                     placeholder="Enter your password"
                     required
                   />
                   <button 
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
-                    {showPassword ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                      </svg>
-                    ) : (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    )}
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
               </div>
@@ -106,7 +135,14 @@ export default function LoginPage() {
                 disabled={isLoading}
                 className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading ? 'Signing in...' : 'Sign In'}
+                {isLoading ? (
+                  <div className="flex items-center justify-center">
+                    <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin mr-2" />
+                    Signing in...
+                  </div>
+                ) : (
+                  'Sign In'
+                )}
               </button>
             </form>
 
@@ -121,14 +157,18 @@ export default function LoginPage() {
 
             <button
               onClick={() => navigate('/owner-login')}
-              className="w-full mt-6 py-3 px-4 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-gray-100 transition-all"
+              className="w-full mt-6 py-3 px-4 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-gray-100 transition-all flex items-center justify-center"
             >
+              <ChefHat size={20} className="mr-2" />
               Login as Restaurant Owner
             </button>
 
-            <p className="mt-4 text-center text-sm text-gray-600">
+            <p className="mt-6 text-center text-sm text-gray-600">
               Don't have an account?{' '}
-              <button onClick={() => navigate('/register')} className="text-blue-600 hover:text-blue-800 font-semibold">
+              <button 
+                onClick={() => navigate('/register')} 
+                className="text-blue-600 hover:text-blue-800 font-semibold transition-colors"
+              >
                 Sign up
               </button>
             </p>
