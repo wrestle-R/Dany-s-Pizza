@@ -17,6 +17,8 @@ import {OwnerProvider} from '../context/ownerContext'
 import Hero from './components/Hero'
 import ReviewForm from './components/customer/Reviews'
 import OwnerReview from './components/owner/OwnerReviews'
+import OwnerShopComponent from './components/owner/OwnerShopComponent'
+import Shop from './components/customer/Shop'
 
 import Dashboard from './components/customer/Dashboard'
 
@@ -47,8 +49,8 @@ const App = () => {
                 <Route path='/' element={<Hero/>}/>
                 <Route path='/reviews' element={<ReviewForm/>}/>
                 <Route path='/owner-reviews' element={<OwnerReview/>}/>
-
-
+                <Route path='/owner-shop' element={<OwnerShopComponent/>}/>
+                <Route path='/shop' element={<Shop/>}/>
 
 
 

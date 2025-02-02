@@ -1,11 +1,26 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Star, User, MapPin, ChefHat, MenuSquare, MessageCircle, Loader2 } from 'lucide-react';
+import { useOwner } from '../../../context/ownerContext';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+
 
 const OwnerReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate()
+    const { owner } = useOwner();
+  
+useEffect(() => {
+    if (!owner) {
+      navigate('/owner-login');
+      toast.error('Login as Owner to continue');
+    }
+  }, [owner, navigate]);
 
   useEffect(() => {
     const fetchReviews = async () => {

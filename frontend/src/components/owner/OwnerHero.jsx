@@ -58,7 +58,7 @@ const OwnerHero = () => {
         {/* Shop Card */}
         <div 
           className="bg-white p-6 rounded-lg shadow-lg cursor-pointer hover:transform hover:scale-105 transition-transform"
-          onClick={() => navigate('/shop')}
+          onClick={() => navigate('/owner-shop')}
         >
           <div className="text-4xl text-indigo-600 mb-4">
             <i className="fas fa-box"></i>
