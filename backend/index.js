@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 // Serve static file uploads
 
 app.use("/Shop-uploads", express.static(path.join(__dirname, "Shop-uploads")));  // Added shop images storage
+app.use("/Event-uploads", express.static("Event-uploads"));
 
 // Routes
 app.use("/api", require("./routes/customerRoutes"));
@@ -36,6 +37,9 @@ app.use("/api/chef", require("./routes/chefRoutes"));
 app.use("/api/customer", require("./routes/reviewRoutes")); 
 app.use("/api/shop", require("./routes/shopRoutes"));  // Added shop routes
 app.use("/api/shop/cart", require("./routes/cartShopRoutes"));  // Added shop routes
+app.use("/api/events", require("./routes/eventRoutes"));  // Added shop routes
+app.use("/api/bookings", require("./routes/bookingRoutes"));  // Added shop routes
+
 
 
 // Start server

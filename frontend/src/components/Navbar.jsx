@@ -21,7 +21,7 @@ const Navbar = () => {
   const commonNavLinks = [
     { name: 'Chefs', path: '/chefs', ownerPath: '/owner-chef', icon: <ChefHat className="w-5 h-5" /> },
     { name: 'Menu', path: '/menu', ownerPath: '/owner-menu', icon: <Coffee className="w-5 h-5" /> },
-    { name: 'Events', path: '/events', ownerPath: '/events', icon: <Calendar className="w-5 h-5" /> },
+    { name: 'Events', path: '/events', ownerPath: '/owner-events', icon: <Calendar className="w-5 h-5" /> },
     { name: 'Shop', path: '/shop', ownerPath: '/owner-shop', icon: <Store className="w-5 h-5" /> },
     { name: 'Reviews', path: '/reviews', ownerPath: '/owner-reviews', icon: <Star className="w-5 h-5" /> },
   ];

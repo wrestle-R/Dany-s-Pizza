@@ -19,6 +19,10 @@ import ReviewForm from './components/customer/Reviews'
 import OwnerReview from './components/owner/OwnerReviews'
 import OwnerShopComponent from './components/owner/OwnerShopComponent'
 import Shop from './components/customer/Shop'
+import Events from './components/customer/events'
+import OwnerBooktable from './components/owner/OwnerBooktable'
+import OwnerEvents from './components/owner/OwnerEvents'
+import Booktable from './components/customer/Booktable'
 
 import Dashboard from './components/customer/Dashboard'
 
@@ -51,6 +55,10 @@ const App = () => {
                 <Route path='/owner-reviews' element={<OwnerReview/>}/>
                 <Route path='/owner-shop' element={<OwnerShopComponent/>}/>
                 <Route path='/shop' element={<Shop/>}/>
+                <Route path="/events" element={<Events />} />
+                <Route path="/owner-events" element={<OwnerEvents />} />
+               <Route path="/booktable/:eventId" element={<Booktable />} />
+          <Route path="/owner-booktable" element={<OwnerBooktable />} />
 
 
 
